@@ -43,6 +43,14 @@ def convertdata():
 
 def main():
 
+    # ML parameters to be set in Settings game menu
+    bootstrap = False # (bool) sample with replacement = true
+    max_depth = 60 # (int) max depth
+    max_features = 3 # (int)
+    min_samples_leaf = 1 # (int)
+    min_samples_split = 2 # (int > 1)
+    n_estimators = 80 # (int) number of decision trees in forest
+    
     # delete the temporary files
     convertdata()
     eeg_data = pd.read_csv('Data_Sets/new_data.csv')
@@ -65,8 +73,8 @@ def main():
     print(X_test.shape)
     print(y_test.shape)
 
-    # Create a random forest classifier with 100 estimators
-    rf = RandomForestClassifier(n_estimators=100)
+    # Create a random forest classifier with 100 estimators    
+    rf = RandomForestClassifier(bootstrap=bootstrap,max_depth=max_depth,max_features=max_features,min_samples_leaf=min_samples_leaf,min_samples_split=min_samples_split,n_estimators=n_estimators)
     # Fit the model to X_train and y_train
     rf.fit(X_train, y_train)
     # Make predictions on X_test
